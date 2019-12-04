@@ -22,10 +22,9 @@ public class AmazonSNSPublisherService implements PublisherService {
     private String snsTopicDemoARN;
 
     @Autowired
-    public AmazonSNSPublisherService(BasicAWSCredentials sessionCredentials, String snsTopicDemoARN) {
+    public AmazonSNSPublisherService(BasicAWSCredentials sessionCredentials) {
 
         this.amazonSNS = AmazonSNSClientBuilder.standard().withRegion(Regions.EU_WEST_1).withCredentials(new AWSStaticCredentialsProvider(sessionCredentials)).build();
-        this.snsTopicDemoARN = snsTopicDemoARN;
 
 
     }
@@ -37,7 +36,6 @@ public class AmazonSNSPublisherService implements PublisherService {
 
         String snsTopic = getTopicARN(snsTopicDemoARN);
         PublishRequest publishRequest = new PublishRequest()
-             //   .withTopicArn(snsTopic)
                 .withMessage(message).withPhoneNumber(number).withMessageAttributes(new HashMap<String, MessageAttributeValue>());
         PublishResult publishResult = this.amazonSNS.publish(publishRequest);
 

@@ -5,17 +5,20 @@ import com.pacman.bytes.demo.dto.LoginRequest;
 import com.pacman.bytes.demo.dto.LoginResponse;
 import com.pacman.bytes.demo.entity.User;
 import com.pacman.bytes.demo.repo.IUserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
 @Component
-public class AuthorizationService {
+@Profile("LDAP-MOCK")
+@AllArgsConstructor
+public class AuthorizationService implements IAuthorizationService {
 
-    @Autowired
     IUserRepository userRepository;
 
+    @Override
     public LoginResponse login(LoginRequest request) {
 
         Optional<User> userOptional = userRepository.findByUsernameIgnoreCase(request.getUsername());
@@ -47,6 +50,7 @@ public class AuthorizationService {
 
     }
 
+    @Override
     public void updateAccount(AccountDto accountDto) {
 
         Optional<User> userOptional = userRepository.findByUsernameIgnoreCase(accountDto.getUsername());
@@ -66,7 +70,8 @@ public class AuthorizationService {
 
     }
 
-    public boolean changePassword (String username, String password) {
+    @Override
+    public boolean changePassword(String username, String password) {
 
         Optional<User> userOptional = userRepository.findByUsernameIgnoreCase(username);
 
@@ -80,6 +85,7 @@ public class AuthorizationService {
         return false;
     }
 
+    @Override
     public Optional<AccountDto> getAccount(String username) {
 
         Optional<User> userOptional = userRepository.findByUsernameIgnoreCase(username);

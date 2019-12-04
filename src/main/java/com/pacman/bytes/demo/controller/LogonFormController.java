@@ -5,6 +5,7 @@ import com.pacman.bytes.demo.dto.ChangePasswordDto;
 import com.pacman.bytes.demo.dto.LoginRequest;
 import com.pacman.bytes.demo.dto.LoginResponse;
 import com.pacman.bytes.demo.service.AuthorizationService;
+import com.pacman.bytes.demo.service.IAuthorizationService;
 import com.pacman.bytes.demo.service.PublisherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,7 +21,7 @@ import java.util.Optional;
 public class LogonFormController {
 
     @Autowired
-    AuthorizationService authorizationService;
+    IAuthorizationService authorizationService;
 
     @Autowired
     PublisherService publisherService;

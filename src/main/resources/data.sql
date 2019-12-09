@@ -15,4 +15,4 @@ CREATE TABLE users (
 );
 
 INSERT INTO users VALUES
- (default,'user1','user1password',false,true,null,null,null,'safe',null,0);
+ (default,'user1','user1password',false,false,null,null,null,'safe',null,0);

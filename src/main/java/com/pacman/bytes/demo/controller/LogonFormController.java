@@ -23,8 +23,6 @@ public class LogonFormController {
     @Autowired
     IAuthorizationService authorizationService;
 
-    @Autowired
-    PublisherService publisherService;
 
     @GetMapping("/beginLogon")
     public String logon(Model model) {
@@ -36,9 +34,6 @@ public class LogonFormController {
 
     @PostMapping("/beginLogon")
     public ModelAndView processLogin(@ModelAttribute LoginRequest loginRequest) throws Exception{
-
-
-      // publisherService.publish("Login Request Received","");
 
         LoginResponse loginResponse = authorizationService.login(loginRequest);
 

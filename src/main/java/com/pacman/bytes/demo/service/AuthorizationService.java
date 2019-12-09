@@ -57,7 +57,17 @@ public class AuthorizationService implements IAuthorizationService {
 
         if (userOptional.isPresent()) {
             User user = userOptional.get();
-            user.setIsLocked(accountDto.getIsLocked());
+
+            //Was the account locked and now we're unlocking
+            if (!user.getPassword().equals(accountDto.getPassword())) {
+                user.setPassword(accountDto.getPassword());
+                user.setIsLocked(false);
+                user.setFailedLoginCount(0);
+            } else if (!user.getIsLocked() && accountDto.getIsLocked()) {
+                //Account wasn't locked but now is
+                user.setIsLocked(true);
+            }
+            user.setIsPasswordTemporary(accountDto.getIsPasswordTemporary());
             user.setSafeWord(accountDto.getSafeWord());
             user.setSecurityAnswer1(accountDto.getSecurityAnswer1());
             user.setSecurityAnswer2(accountDto.getSecurityAnswer2());
